@@ -33,7 +33,7 @@ def makeGrid():
 
 def keyPressed():
     global ship
-    if keyCode == LEFT:
+    if key == "a":
         ship.x -= 5
-    if keyCode == RIGHT:
+    if key == "d":
         ship.x += 5
