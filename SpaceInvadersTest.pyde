@@ -1,7 +1,8 @@
 from Ship import *
+from random import *
 
 ship = None #this will become the ship later on fam
-
+lazers = []
 def setup():
     global ship
     size(700,700)
@@ -13,6 +14,17 @@ def draw():
     makeGrid()
     noFill()
     ship.show()
+    renderLazers()
+
+def renderLazers():
+    global lazers
+    for i in range(len(lazers)):
+        lazers[i].drawType1()
+
+def chackLazers():
+    global lazer
+    for i in range(len(lazers)):
+        if lazers[i].y+lazers[i].objHeight < 0 or lazers[i].y - lazers[[]
 
 def makeGrid():
     background(255)
@@ -32,7 +44,7 @@ def makeGrid():
     
 
 def keyPressed():
-    global ship,SPACE
+    global ship,lazers
     if key == "a" and ship.x > 0:
         ship.x -= 5
         return
@@ -40,6 +52,5 @@ def keyPressed():
         ship.x += 5
         return
     if key == " ":
-        ship.shoot()
-        ship.decrHp(1) # this is a place holder TODO
+        lazers.append(ship.shoot())
         return
