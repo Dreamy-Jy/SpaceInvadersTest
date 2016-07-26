@@ -1,13 +1,13 @@
 from Ship import *
 
-ship = 0
+ship = None #this will become the ship later on fam
+
 def setup():
     global ship
     size(700,700)
     background(0)
     #setsup a horazontial lines
-    ship = Ship(600,600)
-
+    ship = Ship(600,600) #sets up the ship
 
 def draw():
     makeGrid()
@@ -32,8 +32,14 @@ def makeGrid():
     
 
 def keyPressed():
-    global ship
-    if key == "a":
+    global ship,SPACE
+    if key == "a" and ship.x > 0:
         ship.x -= 5
-    if key == "d":
+        return
+    if key == "d" and ship.x < 700 - ship.objWidth:
         ship.x += 5
+        return
+    if key == " ":
+        ship.shoot()
+        ship.decrHp(1) # this is a place holder TODO
+        return

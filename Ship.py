@@ -1,14 +1,18 @@
-class Ship():
+from Entity import * 
+
+class Ship(Entity):
     full_hp = 4
+    
     def __init__(self, x, y):
-        self.x = x
-        self.y = y
-        self.hp = 4
-        self.is_damaged = False
+        self.img = loadImage("Ship.png")
+        super(Ship,self).__init__(x, y, Ship.full_hp, self.img.height, self.img.width)
         self.is_shooting = False
         self.is_moving = False
-        self.is_live = True
-        self.img = loadImage("Ship.png")
+        print("the height of this object is ",self.objHeight)
+        print("the width of this object is "+str(self.objWidth)+" and ship full hp is "+str(self.full_hp))
     
     def show(self):
         image(self.img, self.x, self.y)
+    
+    def shoot(self):
+        print("shoot!!")
