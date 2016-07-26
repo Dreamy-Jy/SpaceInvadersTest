@@ -16,7 +16,7 @@ class Lazer(object):
     def drawType1(self):
         fill(randint(0,255),randint(0,255),randint(0,255))
         ellipse(self.x, self.y, 10, 10)
-        self.y -= self. speed
+        self.y -= self.speed
     def drawType2(self):
         fill(randint(0,255),randint(0,255),randint(0,255))
         ellipse(self.x, self.y, 5, 50)

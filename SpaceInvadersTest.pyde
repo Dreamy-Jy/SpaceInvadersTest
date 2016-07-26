@@ -15,7 +15,7 @@ def draw():
     noFill()
     ship.show()
     renderLazers()
-    checkLazers()
+    #checkLazers()
 
 def renderLazers():
     global lazers
@@ -23,9 +23,12 @@ def renderLazers():
         lazers[i].drawType1()
 
 def checkLazers():
-    global lazer
-    for i in range(len(lazers)):
+    global lazers
+    index = 0
+    while index > len(lazers) :
             del lazers[i]
+            print("poped")
+            i -= 1
 
 def makeGrid():
     background(255)
