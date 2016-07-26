@@ -15,16 +15,17 @@ def draw():
     noFill()
     ship.show()
     renderLazers()
+    checkLazers()
 
 def renderLazers():
     global lazers
     for i in range(len(lazers)):
         lazers[i].drawType1()
 
-def chackLazers():
+def checkLazers():
     global lazer
     for i in range(len(lazers)):
-        if lazers[i].y+lazers[i].objHeight < 0 or lazers[i].y - lazers[[]
+            del lazers[i]
 
 def makeGrid():
     background(255)

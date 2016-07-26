@@ -16,4 +16,4 @@ class Ship(Entity):
         image(self.img, self.x, self.y)
     
     def shoot(self):
-        return Lazer(self.x+ 25   ca, self.y + 3, 5, 1)
+        return Lazer(self.x+ 25, self.y + 3, 5, 1)
