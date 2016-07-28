@@ -73,7 +73,6 @@ def makeGrid():
         line (x,y1,x,y2)
         x += 50
      
-
 def keyPressed():
     global ship,lazers
     if key == "a" and ship.x > 0:
