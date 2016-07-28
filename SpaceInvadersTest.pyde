@@ -17,7 +17,12 @@ def draw():
     ship.show()
     renderLazers()
     checkLazers()
-
+    fill(0)
+    rect(100,500,100,50)
+    fill(0)
+    rect(300,500,100,50)
+    fill(0)
+    rect(500,500,100,50)
 def renderLazers():
     global lazers
     for i in range(len(lazers)):
