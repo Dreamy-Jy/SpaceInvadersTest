@@ -18,3 +18,4 @@ class Ship(Entity):
     def shoot(self):
         if (self.can_shoot):
             print( self.can_shoot)
+            return Lazer(self.x+ 25, self.y - 13, -5, 1)
