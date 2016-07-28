@@ -7,7 +7,7 @@ class Ship(Entity):
     def __init__(self, x, y):
         self.img = loadImage("Ship.png")
         super(Ship,self).__init__(x, y, Ship.full_hp, self.img.height, self.img.width)
-        self.is_shooting = False
+        self.can_shoot = True
         self.is_moving = False
         #print("the height of this object is ",self.objHeight)
         #print("the width of this object is "+str(self.objWidth)+" and ship full hp is "+str(self.full_hp))
@@ -16,4 +16,5 @@ class Ship(Entity):
         image(self.img, self.x, self.y)
     
     def shoot(self):
-        return Lazer(self.x+ 25, self.y + 3, 5, 1)
+        if (self.can_shoot):
+            print( self.can_shoot)
