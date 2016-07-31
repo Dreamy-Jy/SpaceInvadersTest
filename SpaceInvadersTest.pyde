@@ -2,27 +2,27 @@ from Ship import *
 from Lazer import *
 from random import *
 
-ship = 0 #this will become the ship later on fam
+ship = None #this will become the ship later on fam
+alien = None
 lazers = []
 def setup():
-    global ship
+    global ship, alien
     size(700,700)
     background(0)
     #setsup a horazontial lines
     ship = Ship(600,600) #sets up the ship
+    alien = Alien(300,300,1)
 
 def draw():
+    global ship,alien, lazers
     makeGrid()
     noFill()
+    alien.update()
     ship.show()
     renderLazers()
     checkLazers()
-    fill(0)
-    rect(100,500,100,50)
-    fill(0)
-    rect(300,500,100,50)
-    fill(0)
-    rect(500,500,100,50)
+    
+
 def renderLazers():
     global lazers
     for i in range(len(lazers)):

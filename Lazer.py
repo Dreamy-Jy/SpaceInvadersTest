@@ -14,10 +14,14 @@ class Lazer(object):
             self.objWidth = 5
 
     def drawType1(self):
+        noStroke()
         fill(randint(0,255),randint(0,255),randint(0,255))
         ellipse(self.x, self.y, 10, 10)
         self.y -= self.speed
+        stroke(0)
     def drawType2(self):
+        noStroke()
         fill(randint(0,255),randint(0,255),randint(0,255))
         ellipse(self.x, self.y, 5, 50)
         self.y -= self.speed
+        stroke(0)

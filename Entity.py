@@ -1,3 +1,6 @@
+from Lazer import *
+from random import *
+
 class Entity(object):
     is_damaged = False  # Adopt new variable assignment method 
     is_Live = True
@@ -29,3 +32,23 @@ class Entity(object):
     #will respond to death mean to be overriden
     def die(self):
         pass
+#--------------------------------------------------------------------------------------------#
+class  Alien(Entity):
+    full_hp = 4
+    def __init__(self, x, y, type):
+        self.imgs = [loadImage("Alien"+str(type)+"pic1.png"),loadImage("Alien"+str(type)+"pic2.png"),loadImage("Alien"+str(type)+"pic3.png")]
+        super(Alien,self).__init__(x, y, Alien.full_hp, self.imgs[0].height, self.imgs[0].width)
+        self.openOrClose = True
+        self.chance_to_shoot = randint(100,300)
+
+    def update(self):
+        image(self.imgs[second()%2], self.x+1, self.y)
+        if second()%2 == 0:
+            self.openOrClose = True
+        else:
+            self.openOrClose = False
+        
+        if self.openOrClose == False and randint(1,3000)%self.chance_to_shoot == 0:
+            print("alien can shoot")
+            image(self.imgs[2], self.x+1, self.y)
+        
