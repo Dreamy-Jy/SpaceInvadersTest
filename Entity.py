@@ -19,7 +19,7 @@ class Entity(object):
         self.hp -= downBy
         print(str(self.hp)+" is my new hp")
         if self.hp == 0:
-            print('im dead')
+            self.is_Live = False
         
     # will display the current hp bar
     def desplayHpBar(self):
@@ -50,8 +50,8 @@ class  Alien(Entity):
             self.openOrClose = True
         else:
             self.openOrClose = False
-        
-        if self.openOrClose == False and randint(1,3000)%self.chance_to_shoot == 0:
+        """
+        if second()% == False and randint(1,3000)%self.chance_to_shoot == 0:
             print("alien can shoot")
             image(self.imgs[2], self.x+1, self.y)
-        
+        """

@@ -12,7 +12,7 @@ class Ship(Entity):
         #print("the height of this object is ",self.objHeight)
         #print("the width of this object is "+str(self.objWidth)+" and ship full hp is "+str(self.full_hp))
     
-    def show(self):
+    def update(self):
         image(self.img, self.x, self.y)
     
     def shoot(self):

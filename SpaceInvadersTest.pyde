@@ -1,17 +1,18 @@
 from Ship import *
 from Lazer import *
 from random import *
+from time import *
 
 ship = None #this will become the ship later on fam
 alien = None
 lazers = []
 
-# theirs going to be a method to load the list
+# theirs going to be a method to load the list, this must be loaded in the setp method
 entities = [
-            [ ],
-            [ ],
-            [ ]
+            [ship],
+            [alien]
             ]
+
 def setup():
     global ship, alien
     size(700,700)
@@ -19,34 +20,53 @@ def setup():
     #setsup a horazontial lines
     ship = Ship(600,600) #sets up the ship
     alien = Alien(300,300,1)
-
+    entities[0][0] = ship
+    entities[1][0] = alien
+    
 def draw():
-    global ship,alien, lazers
+    global ship,alien, lazers, entities
     makeGrid()
     noFill()
-    alien.update()
-    ship.show()
+    #entities[0][0].update()
+    #entities[1][0].update()
+    renderAllEntities()
     renderLazers()
     checkLazers()
-    checkIfLazersHit()
+    allObjForHit()
 
+def updateAllEntities():
+  pass  
+
+def renderAllEntities():
+    global entities
+    for row in range(len(entities)):
+        for col in range(len(entities[row])):
+            if entities[row][col] != None and entities[row][col].is_Live:
+                entities[row][col].update()
 def renderLazers():
     global lazers
     for i in range(len(lazers)):
         lazers[i].drawType1()
 
+def allObjForHit():
+    for row in range(len(entities)):
+        for col in range(len(entities[row])):
+            if entities[row][col] != None:
+                checkIfLazersHit(entities[row][col])
+
 #made to test collision on the alien  
-def checkIfLazersHit():
-    global lazers, alien
-    i = 0
-    while i < len(lazers):
-       if alien.checkCollision(lazers[i]):
-           del lazers[i]
-           i -= 1
-           if i < 0:
-               i += 1
-       else:
-            i += 1
+def checkIfLazersHit(obj):
+    global lazers
+    print("checking for hits")
+    colL = 0     
+    while colL < len(lazers):
+        if obj.checkCollision(lazers[colL]):
+            del lazers[colL]
+            colL -= 1
+            if colL < 0:
+                colL += 1
+        else:
+            colL += 1
 
 # maybe we can just chack the frist lazer in the list and see if we need to remove it and the other lazers next
 #coonsider reversing the if statment to look if the lazer is in the screen
@@ -58,7 +78,6 @@ def checkLazers():
     while index < len(lazers) :
         if lazers[index].y + lazers[index].objHeight < 0 or lazers[index].y > height:
             del lazers[index]
-            print("poped")
             index -= 1
             if index < 0:
                 index += 1
