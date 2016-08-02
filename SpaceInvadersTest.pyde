@@ -5,6 +5,13 @@ from random import *
 ship = None #this will become the ship later on fam
 alien = None
 lazers = []
+
+# theirs going to be a method to load the list
+entities = [
+            [ ],
+            [ ],
+            [ ]
+            ]
 def setup():
     global ship, alien
     size(700,700)
@@ -21,12 +28,26 @@ def draw():
     ship.show()
     renderLazers()
     checkLazers()
-    
+    checkIfLazersHit()
 
 def renderLazers():
     global lazers
     for i in range(len(lazers)):
         lazers[i].drawType1()
+
+#made to test collision on the alien  
+def checkIfLazersHit():
+    global lazers, alien
+    i = 0
+    while i < len(lazers):
+       if alien.checkCollision(lazers[i]):
+           del lazers[i]
+           i -= 1
+           if i < 0:
+               i += 1
+       else:
+            i += 1
+
 # maybe we can just chack the frist lazer in the list and see if we need to remove it and the other lazers next
 #coonsider reversing the if statment to look if the lazer is in the screen
 #this makes the function go out for bounds
@@ -43,7 +64,6 @@ def checkLazers():
                 index += 1
         else:
             index += 1
-    
 
 '''everyoneStopShooting()
 this method prevents all entities from shooting because the way system works is

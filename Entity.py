@@ -20,14 +20,17 @@ class Entity(object):
         print(str(self.hp)+" is my new hp")
         if self.hp == 0:
             print('im dead')
-            
+        
     # will display the current hp bar
     def desplayHpBar(self):
         pass
     
     #will respond to colisions
-    def hit(self):
-        pass
+    def checkCollision(self, obj):
+        if (self.x <= obj.x and self.x + self.objWidth >= obj.x) and (self.y <= obj.y and self.y + self.objHeight >= obj.y):
+            self.decrHp(1)
+            return True
+        return False
 
     #will respond to death mean to be overriden
     def die(self):
