@@ -42,6 +42,7 @@ def loadEntities():
     global entities
     startx = 100
     starty = 100
+    entities[1][0] = Wall(100,550)
     # loads the aliens
     for col in range(len(entities[2])):
         entities[2][col] = Alien(startx, starty, 1)

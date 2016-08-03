@@ -37,7 +37,7 @@ class Entity(object):
         pass
 #--------------------------------------------------------------------------------------------#
 class  Alien(Entity):
-    full_hp = 4
+    full_hp = 10
     def __init__(self, x, y, type):
         self.imgs = [loadImage("Alien"+str(type)+"pic1.png"),loadImage("Alien"+str(type)+"pic2.png"),loadImage("Alien"+str(type)+"pic3.png")]
         super(Alien,self).__init__(x, y, Alien.full_hp, self.imgs[0].height, self.imgs[0].width)
@@ -55,3 +55,11 @@ class  Alien(Entity):
             print("alien can shoot")
             image(self.imgs[2], self.x+1, self.y)
         """
+class Wall(Entity):
+    full_hp = 10
+    def __init__(self, x, y):
+        self.img = loadImage("Wall.png")
+        super(Wall,self).__init__(x, y, Wall.full_hp, self.img.height, self.img.width)
+        
+    def update(self):
+        image(self.img, self.x, self.y)
