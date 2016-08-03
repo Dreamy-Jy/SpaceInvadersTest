@@ -10,7 +10,11 @@ lazers = []
 # theirs going to be a method to load the list, this must be loaded in the setp method
 entities = [
             [ship],
-            [alien]
+            [None],
+            [None,None,None,None,None,None,
+             None,None,None,None,None,None,
+             None,None,None,None,None,None,
+             None,None,None,None,None,None]
             ]
 
 def setup():
@@ -19,9 +23,8 @@ def setup():
     background(0)
     #setsup a horazontial lines
     ship = Ship(600,600) #sets up the ship
-    alien = Alien(300,300,1)
     entities[0][0] = ship
-    entities[1][0] = alien
+    loadEntities()
     
 def draw():
     global ship,alien, lazers, entities
@@ -33,7 +36,21 @@ def draw():
     renderLazers()
     checkLazers()
     allObjForHit()
+    checkIfObjDead()
 
+def loadEntities():
+    global entities
+    startx = 100
+    starty = 100
+    # loads the aliens
+    for col in range(len(entities[2])):
+        entities[2][col] = Alien(startx, starty, 1)
+        if (col+1)%6 == 0:
+            startx = 100
+            starty += 100
+        else:
+            startx += 100
+        
 def updateAllEntities():
   pass  
 
@@ -53,7 +70,13 @@ def allObjForHit():
         for col in range(len(entities[row])):
             if entities[row][col] != None:
                 checkIfLazersHit(entities[row][col])
-
+def checkIfObjDead():
+    global entities
+    for row in range(len(entities)):
+        for col in range(len(entities[row])):
+            if entities[row][col] != None and entities[row][col].is_Live != True:
+                entities[row][col] = None 
+    
 #made to test collision on the alien  
 def checkIfLazersHit(obj):
     global lazers
@@ -90,8 +113,9 @@ that two thread running in the program that involve them selfs with lazer creati
 the draw() renders the lazers to the screen and checks if the lazer have left the screen
 or hit something, so if an of those two happen in can take the lazer out of the game. 
 The second thread the keyPressed() created new bullet when the draw() was checking the
-list causing concurrency 
-''' # may not be needed
+list causing concurrency
+'''
+# may not be needed
 def everyoneStopShooting():
     global ship
     ship.can_shoot = False
@@ -99,6 +123,7 @@ def everyoneStopShooting():
 def everyoneStartShooting():
     global ship
     ship.can_shoot = True
+# del
 
 #will destroy
 def makeGrid():
