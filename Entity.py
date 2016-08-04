@@ -1,6 +1,7 @@
 from Lazer import *
 from random import *
 
+
 class Entity(object):
     is_damaged = False  # Adopt new variable assignment method 
     is_Live = True
@@ -42,19 +43,27 @@ class  Alien(Entity):
         self.imgs = [loadImage("Alien"+str(type)+"pic1.png"),loadImage("Alien"+str(type)+"pic2.png"),loadImage("Alien"+str(type)+"pic3.png")]
         super(Alien,self).__init__(x, y, Alien.full_hp, self.imgs[0].height, self.imgs[0].width)
         self.openOrClose = True
-        self.chance_to_shoot = randint(100,300)
+        self.chance_to_shoot = choice(range(1, 7, 2))
+        self.can_shoot = False
 
     def update(self):
         image(self.imgs[second()%2], self.x+1, self.y)
         if second()%2 == 0:
-            self.openOrClose = True
+            self.openOrClose = True #closed
         else:
-            self.openOrClose = False
+            self.openOrClose = False #open
+            if second()%self.chance_to_shoot == 0:
+                self.can_shoot = True
+                print("shot fired at {},{} on {} second".format(self.x,self.y,second()))
         """
         if second()% == False and randint(1,3000)%self.chance_to_shoot == 0:
             print("alien can shoot")
             image(self.imgs[2], self.x+1, self.y)
         """
+    def shoot(self):
+        if (self.can_shoot):
+            return Lazer(self.x+ 25, self.y - 13, -5, 2)
+        
 class Wall(Entity):
     full_hp = 10
     def __init__(self, x, y):

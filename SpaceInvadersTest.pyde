@@ -2,48 +2,58 @@ from Ship import *
 from Lazer import *
 from random import *
 from time import *
+from Entity import *
 
-ship = None #this will become the ship later on fam
-alien = None
+"""
+1. ALiens need to move 
+2. bullet delay
+3. wall line up
+4. sounds
+5. background
+"""
 lazers = []
 
 # theirs going to be a method to load the list, this must be loaded in the setp method
 entities = [
-            [ship],
             [None],
-            [None,None,None,None,None,None,
-             None,None,None,None,None,None,
-             None,None,None,None,None,None,
-             None,None,None,None,None,None]
+            [None,None,None],
+            [None]
             ]
-
+''',None,None,None,None,None,
+             None,None,None,None,None,None,
+             None,None,None,None,None,None,
+             None,None,None,None,None,None]'''
 def setup():
-    global ship, alien
     size(700,700)
     background(0)
-    #setsup a horazontial lines
-    ship = Ship(600,600) #sets up the ship
-    entities[0][0] = ship
     loadEntities()
     
 def draw():
-    global ship,alien, lazers, entities
+    global lazers, entities
     makeGrid()
     noFill()
-    #entities[0][0].update()
-    #entities[1][0].update()
     renderAllEntities()
-    renderLazers()
+    renderLazers()    
     checkLazers()
     allObjForHit()
     checkIfObjDead()
 
 def loadEntities():
     global entities
+    
+    # loads the ship
+    entities[0][0] = Ship(600,600)
+    
+    # loads all walls
+    startx = 100
+    starty = 550
+    for col in range(len(entities[1])):
+        entities[1][col] = Wall(startx,starty)
+        startx += 200
+    
+    # loads all of the aliens
     startx = 100
     starty = 100
-    entities[1][0] = Wall(100,550)
-    # loads the aliens
     for col in range(len(entities[2])):
         entities[2][col] = Alien(startx, starty, 1)
         if (col+1)%6 == 0:
@@ -77,7 +87,12 @@ def checkIfObjDead():
         for col in range(len(entities[row])):
             if entities[row][col] != None and entities[row][col].is_Live != True:
                 entities[row][col] = None 
-    
+
+def checkForAlienFire():
+    global entities
+    for col in range(len(entities[2])):
+        if entities[2][col] != None and entities[2][col].can_shoot:
+            
 #made to test collision on the alien  
 def checkIfLazersHit(obj):
     global lazers
@@ -144,13 +159,15 @@ def makeGrid():
         x += 50
      
 def keyPressed():
-    global ship,lazers
-    if key == "a" and ship.x > 0:
-        ship.x -= 5
-        return
-    if key == "d" and ship.x < 700 - ship.objWidth:
-        ship.x += 5
-        return
-    if key == " ":
-        lazers.append(ship.shoot())
-        return
+    global entities,lazers
+    
+    if entities[0][0] != None:
+        if key == "a" and entities[0][0].x > 0:
+            entities[0][0].x -= 5
+            return
+        if key == "d" and entities[0][0].x < 700 - entities[0][0].objWidth:
+            entities[0][0].x += 5
+            return
+        if key == " ":
+            lazers.append(entities[0][0].shoot())
+            return
