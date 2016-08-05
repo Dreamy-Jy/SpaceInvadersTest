@@ -2,11 +2,11 @@ from Entity import *
 from Lazer import *
 
 class Ship(Entity):
-    full_hp = 4
+    full_hp = 4000
     
     def __init__(self, x, y):
         self.img = loadImage("Ship.png")
-        super(Ship,self).__init__(x, y, Ship.full_hp, self.img.height, self.img.width)
+        super(Ship,self).__init__(x, y, Ship.full_hp, self.img.height, self.img.width,"Ship")
         self.can_shoot = True
         self.is_moving = False
 

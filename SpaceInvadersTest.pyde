@@ -17,12 +17,12 @@ lazers = []
 entities = [
             [None],
             [None,None,None],
-            [None]
+            [None,None,None,None,None,None]
             ]
-''',None,None,None,None,None,
-             None,None,None,None,None,None,
-             None,None,None,None,None,None,
-             None,None,None,None,None,None]'''
+'''
+    ,None,None,None,None,None,None,
+    None,None,None,None,None,None,
+    None,None,None,None,None,None]'''
 def setup():
     size(700,700)
     background(0)
@@ -35,6 +35,7 @@ def draw():
     renderAllEntities()
     renderLazers()    
     checkLazers()
+    checkForAlienFire()
     allObjForHit()
     checkIfObjDead()
 
@@ -56,7 +57,7 @@ def loadEntities():
     starty = 100
     for col in range(len(entities[2])):
         entities[2][col] = Alien(startx, starty, 1)
-        if (col+1)%6 == 0:
+        if (col+1)%3 == 0:
             startx = 100
             starty += 100
         else:
@@ -71,16 +72,18 @@ def renderAllEntities():
         for col in range(len(entities[row])):
             if entities[row][col] != None and entities[row][col].is_Live:
                 entities[row][col].update()
+
 def renderLazers():
     global lazers
     for i in range(len(lazers)):
-        lazers[i].drawType1()
+        lazers[i].drawType(lazers[i].type)
 
 def allObjForHit():
     for row in range(len(entities)):
         for col in range(len(entities[row])):
             if entities[row][col] != None:
                 checkIfLazersHit(entities[row][col])
+
 def checkIfObjDead():
     global entities
     for row in range(len(entities)):
@@ -89,30 +92,33 @@ def checkIfObjDead():
                 entities[row][col] = None 
 
 def checkForAlienFire():
-    global entities
+    global entities, lazers
     for col in range(len(entities[2])):
         if entities[2][col] != None and entities[2][col].can_shoot:
+            lazers.append(entities[2][col].shoot()) 
             
 #made to test collision on the alien  
 def checkIfLazersHit(obj):
     global lazers
-    print("checking for hits")
     colL = 0     
     while colL < len(lazers):
-        if obj.checkCollision(lazers[colL]):
+        if obj.checkCollision(lazers[colL]) and not(obj.am == "Alien" and lazers[colL].type == 2):
             del lazers[colL]
             colL -= 1
             if colL < 0:
                 colL += 1
         else:
+            if (obj.am == "Alien" and lazers[colL].type == 2):
+                obj.hp += 1
             colL += 1
+
+
 
 # maybe we can just chack the frist lazer in the list and see if we need to remove it and the other lazers next
 #coonsider reversing the if statment to look if the lazer is in the screen
 #this makes the function go out for bounds
 def checkLazers():
     global lazers, ship
-    #everyoneStopShooting()
     index = 0
     while index < len(lazers) :
         if lazers[index].y + lazers[index].objHeight < 0 or lazers[index].y > height:
@@ -171,3 +177,6 @@ def keyPressed():
         if key == " ":
             lazers.append(entities[0][0].shoot())
             return
+    else:
+        if key == "r":
+            entities[0][0] = Ship(300,600)

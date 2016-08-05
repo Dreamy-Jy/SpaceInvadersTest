@@ -13,15 +13,12 @@ class Lazer(object):
             self.objHeight = 50
             self.objWidth = 5
 
-    def drawType1(self):
+    def drawType(self, type):
         noStroke()
         fill(randint(0,255),randint(0,255),randint(0,255))
-        ellipse(self.x, self.y, 10, 10)
-        self.y -= self.speed
-        stroke(0)
-    def drawType2(self):
-        noStroke()
-        fill(randint(0,255),randint(0,255),randint(0,255))
-        ellipse(self.x, self.y, 5, 50)
+        if type == 1:
+            ellipse(self.x, self.y, 10, 10)
+        else:
+            ellipse(self.x, self.y, 5, 50)
         self.y -= self.speed
         stroke(0)

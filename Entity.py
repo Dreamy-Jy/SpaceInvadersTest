@@ -5,12 +5,13 @@ from random import *
 class Entity(object):
     is_damaged = False  # Adopt new variable assignment method 
     is_Live = True
-    def __init__(self, x, y, hp, objHeight, objWidth):
+    def __init__(self, x, y, hp, objHeight, objWidth, am ):
         self.x = x
         self.y = y
         self.hp = hp
         self.objHeight = objHeight
         self.objWidth = objWidth
+        self.am = am
         #self.is_damaged = False
         #self.is_live = True
         #self.currentHpBar = None #will become the img programs current hp bar will change when hit
@@ -41,9 +42,9 @@ class  Alien(Entity):
     full_hp = 10
     def __init__(self, x, y, type):
         self.imgs = [loadImage("Alien"+str(type)+"pic1.png"),loadImage("Alien"+str(type)+"pic2.png"),loadImage("Alien"+str(type)+"pic3.png")]
-        super(Alien,self).__init__(x, y, Alien.full_hp, self.imgs[0].height, self.imgs[0].width)
+        super(Alien,self).__init__(x, y, Alien.full_hp, self.imgs[0].height, self.imgs[0].width, "Alien")
         self.openOrClose = True
-        self.chance_to_shoot = choice(range(1, 7, 2))
+        self.chance_to_shoot = choice(range(3, 7, 2))
         self.can_shoot = False
 
     def update(self):
@@ -62,13 +63,14 @@ class  Alien(Entity):
         """
     def shoot(self):
         if (self.can_shoot):
-            return Lazer(self.x+ 25, self.y - 13, -5, 2)
-        
+            self.can_shoot = False
+            return Lazer(self.x+ 25, self.y + 55, -5, 2)
+#--------------------------------------------------------------------------------------------#
 class Wall(Entity):
     full_hp = 10
     def __init__(self, x, y):
         self.img = loadImage("Wall.png")
-        super(Wall,self).__init__(x, y, Wall.full_hp, self.img.height, self.img.width)
+        super(Wall,self).__init__(x, y, Wall.full_hp, self.img.height, self.img.width, "Wall")
         
     def update(self):
         image(self.img, self.x, self.y)
