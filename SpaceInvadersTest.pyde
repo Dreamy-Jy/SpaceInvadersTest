@@ -17,11 +17,10 @@ lazers = []
 entities = [
             [None],
             [None,None,None],
-            [None,None,None,None,None,None]
+            [None,None,None,None,None,None,None,None,None,None,None,None,None,None]
             ]
 '''
-    ,None,None,None,None,None,None,
-    None,None,None,None,None,None,
+    ,None,None,None,None,
     None,None,None,None,None,None]'''
 def setup():
     size(700,700)
@@ -30,7 +29,7 @@ def setup():
     
 def draw():
     global lazers, entities
-    makeGrid()
+    background(0)
     noFill()
     renderAllEntities()
     renderLazers()    
@@ -53,16 +52,25 @@ def loadEntities():
         startx += 200
     
     # loads all of the aliens
-    startx = 100
+    startx = 0
     starty = 100
+    chx = 50
+    chy = 0
+    secondLine = True
     for col in range(len(entities[2])):
         entities[2][col] = Alien(startx, starty, 1)
-        if (col+1)%5 == 0:
-            startx = 100
+        if (col+1)%11 == 0:
+            chx = -1*startx +150
             starty += 100
+        elif (col+1)%3 == 0:
+            chx = 100
         else:
-            startx += 100
-        
+            chx = 50
+        startx += chx
+        starty += chy
+    
+    entities[2][12].x = 350 
+    entities[2][13].x = 550
 def updateAllEntities():
   pass  
 
@@ -112,9 +120,7 @@ def checkIfLazersHit(obj):
 
 
 
-# maybe we can just chack the frist lazer in the list and see if we need to remove it and the other lazers next
-#coonsider reversing the if statment to look if the lazer is in the screen
-#this makes the function go out for bounds
+
 def checkLazers():
     global lazers, ship
     index = 0
@@ -127,40 +133,6 @@ def checkLazers():
         else:
             index += 1
 
-'''everyoneStopShooting()
-this method prevents all entities from shooting because the way system works is
-that two thread running in the program that involve them selfs with lazer creation
-the draw() renders the lazers to the screen and checks if the lazer have left the screen
-or hit something, so if an of those two happen in can take the lazer out of the game. 
-The second thread the keyPressed() created new bullet when the draw() was checking the
-list causing concurrency
-'''
-# may not be needed
-def everyoneStopShooting():
-    global ship
-    ship.can_shoot = False
-# may not be needed
-def everyoneStartShooting():
-    global ship
-    ship.can_shoot = True
-# del
-
-#will destroy
-def makeGrid():
-    background(255)
-    fill(255,255,255)
-    x1 = 0
-    x2 = 700
-    y = 0
-    for i in range(14):
-        line(x1,y,x2,y)
-        y += 50
-    x = 0
-    y1 = 0
-    y2 = 700
-    for i in range(14):
-        line (x,y1,x,y2)
-        x += 50
      
 def keyPressed():
     global entities,lazers
@@ -178,3 +150,4 @@ def keyPressed():
     else:
         if key == "r":
             entities[0][0] = Ship(300,600)
+            

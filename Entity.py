@@ -67,7 +67,7 @@ class  Alien(Entity):
             return Lazer(self.x+ 25, self.y + 80, -5, 2)
 #--------------------------------------------------------------------------------------------#
 class Wall(Entity):
-    full_hp = 10
+    full_hp = 60*4
     def __init__(self, x, y):
         self.img = loadImage("Wall.png")
         super(Wall,self).__init__(x, y, Wall.full_hp, self.img.height, self.img.width, "Wall")
