@@ -2,7 +2,7 @@ from Entity import *
 from Lazer import *
 
 class Ship(Entity):
-    full_hp = 4000
+    full_hp = 6
     
     def __init__(self, x, y):
         self.img = loadImage("Ship.png")

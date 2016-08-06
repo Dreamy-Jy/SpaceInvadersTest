@@ -57,7 +57,7 @@ def loadEntities():
     starty = 100
     for col in range(len(entities[2])):
         entities[2][col] = Alien(startx, starty, 1)
-        if (col+1)%3 == 0:
+        if (col+1)%5 == 0:
             startx = 100
             starty += 100
         else:
@@ -102,14 +102,12 @@ def checkIfLazersHit(obj):
     global lazers
     colL = 0     
     while colL < len(lazers):
-        if obj.checkCollision(lazers[colL]) and not(obj.am == "Alien" and lazers[colL].type == 2):
+        if obj.checkCollision(lazers[colL]):
             del lazers[colL]
             colL -= 1
             if colL < 0:
                 colL += 1
         else:
-            if (obj.am == "Alien" and lazers[colL].type == 2):
-                obj.hp += 1
             colL += 1
 
 

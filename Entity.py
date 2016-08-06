@@ -64,7 +64,7 @@ class  Alien(Entity):
     def shoot(self):
         if (self.can_shoot):
             self.can_shoot = False
-            return Lazer(self.x+ 25, self.y + 55, -5, 2)
+            return Lazer(self.x+ 25, self.y + 80, -5, 2)
 #--------------------------------------------------------------------------------------------#
 class Wall(Entity):
     full_hp = 10
